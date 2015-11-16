@@ -205,6 +205,7 @@ int set_freq_limit(unsigned long id, unsigned int freq);
 
 #define CPUFREQ_RELATION_L 0  /* lowest frequency at or above target */
 #define CPUFREQ_RELATION_H 1  /* highest frequency below or at target */
+#define CPUFREQ_RELATION_C 2 /* closest frequency to target */
 
 struct freq_attr {
 	struct attribute attr;
@@ -262,7 +263,7 @@ struct cpufreq_driver {
 
 	/* optional */
 	int	(*bios_limit)	(int cpu, unsigned int *limit);
-
+unsigned int (*getavg) (struct cpufreq_policy *policy, unsigned int cpu);
 	int	(*exit)		(struct cpufreq_policy *policy);
 	int	(*suspend)	(struct cpufreq_policy *policy);
 	int	(*resume)	(struct cpufreq_policy *policy);
@@ -298,6 +299,8 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data);
 int cpufreq_unregister_driver(struct cpufreq_driver *driver_data);
 
 const char *cpufreq_get_current_driver(void);
+
+void cpufreq_notify_utilization(struct cpufreq_policy *policy, unsigned int load);
 
 static inline void cpufreq_verify_within_limits(struct cpufreq_policy *policy,
 		unsigned int min, unsigned int max)
@@ -445,6 +448,7 @@ int cpufreq_driver_target(struct cpufreq_policy *policy,
 int __cpufreq_driver_target(struct cpufreq_policy *policy,
 				   unsigned int target_freq,
 				   unsigned int relation);
+extern int __cpufreq_driver_getavg(struct cpufreq_policy *policy, unsigned int cpu);
 int cpufreq_register_governor(struct cpufreq_governor *governor);
 void cpufreq_unregister_governor(struct cpufreq_governor *governor);
 
@@ -476,6 +480,12 @@ extern struct cpufreq_governor cpufreq_gov_interactive;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_BLUACTIVE)
 extern struct cpufreq_governor cpufreq_gov_bluactive;
 #define CPUFREQ_DEFAULT_GOVERNOR 	(&cpufreq_gov_bluactive)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND)
+extern struct cpufreq_governor cpufreq_gov_intellidemand;
+#define CPUFREQ_DEFAULT_GOVERNOR (&cpufreq_gov_intellidemand)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_DARKNESS)
+extern struct cpufreq_governor cpufreq_gov_darkness;
+#define CPUFREQ_DEFAULT_GOVERNOR (&cpufreq_gov_darkness)
 #endif
 
 /*********************************************************************
