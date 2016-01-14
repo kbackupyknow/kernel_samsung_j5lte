@@ -901,6 +901,13 @@ static int edp_event_thread(void *data)
 			pr_debug("%s: interrupted", __func__);
                         continue;
 		}
+ 			(ep->event_pndx != ep->event_gndx) ||
+ 			kthread_should_stop());
+
+ 		if (ret) {
+ 			pr_debug("%s: interrupted", __func__);
+ 			continue;
+ }
 
 		spin_lock_irqsave(&ep->event_lock, flag);
 		if (ep->event_pndx == ep->event_gndx) {
