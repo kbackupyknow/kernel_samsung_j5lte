@@ -1,3 +1,4 @@
+
 # When adding new entries keep the list in alphabetical order
 CFLAGS_scm.o :=$(call as-instr,.arch_extension sec,-DREQUIRES_SEC=1)
 
@@ -81,3 +82,4 @@ obj-$(CONFIG_QCOM_EARLY_RANDOM)	+= early_random.o
 obj-$(CONFIG_MSM_PACMAN)        += msm_pacman.o
 
 obj-y		+= samsung/
+obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
