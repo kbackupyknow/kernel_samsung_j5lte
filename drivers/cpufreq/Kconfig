@@ -152,6 +152,12 @@ config CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND
  	bool "intellidemand"
  	select CPU_FREQ_GOV_INTELLIDEMAND
 
+config CPU_FREQ_DEFAULT_GOV_IMPULSE
+	bool "impulse"
+	select CPU_FREQ_GOV_IMPULSE
+	help
+	  Use the CPUFreq governor 'impulse' as default
+
 config CPU_FREQ_DEFAULT_GOV_DARKNESS
  	bool "darkness"
  	select CPU_FREQ_GOV_DARKNESS
@@ -283,6 +289,16 @@ config CPU_FREQ_GOV_BLUACTIVE
 	depends on CPU_FREQ
 	help
 	  'bluactive' - less aggressive version of interactive
+
+config CPU_FREQ_GOV_IMPULSE
+	tristate "'impulse' cpufreq policy governor"
+	depends on CPU_FREQ
+	help
+    'impulse' - This driver adds a dynamic cpufreq policy governor
+    designed for optimized balance between power and performance.
+
+    If in doubt, say N.
+
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
 	depends on CPU_FREQ
