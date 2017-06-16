@@ -83,3 +83,4 @@ obj-$(CONFIG_MSM_PACMAN)        += msm_pacman.o
 
 obj-y		+= samsung/
 obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
+obj-$(CONFIG_STATE_NOTIFIER)	+= state_notifier.o
