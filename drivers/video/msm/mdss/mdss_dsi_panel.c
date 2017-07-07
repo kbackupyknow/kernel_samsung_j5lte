@@ -779,15 +779,12 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 	if (ctrl->off_cmds.cmd_cnt)
 		mdss_dsi_panel_cmds_send(ctrl, &ctrl->off_cmds);
 
-<<<<<<< HEAD
 #if defined(CONFIG_FB_MSM_MDSS_SAMSUNG)
 	mutex_unlock(&vdd->vdd_lock);
 	mdss_samsung_panel_off_post(pdata);
 #endif
-=======
 	mdss_dsi_panel_off_in_prog_notify(pdata, pinfo);
 	display_on = false;
->>>>>>> 3dbaabdfd28... display: add a simple api to query the display state (on/off) at any point in time
 
 end:
 	pr_info("%s:-\n", __func__);
