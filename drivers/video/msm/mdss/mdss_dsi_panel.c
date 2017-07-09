@@ -22,11 +22,9 @@
 #include <linux/qpnp/pwm.h>
 #include <linux/err.h>
 
-#include <linux/display_state.h>
 #ifdef CONFIG_POWERSUSPEND
 #include <linux/powersuspend.h>
 #endif
-
 #include "mdss_dsi.h"
 
 #if defined(CONFIG_FB_MSM_MDSS_SAMSUNG)
@@ -46,13 +44,6 @@
 #define MIN_REFRESH_RATE 30
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
-
-bool display_on = true;
-
-bool is_display_on()
-{
-	return display_on;
-}
 
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
 {
@@ -703,8 +694,6 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 		pr_err("%s: Invalid input data\n", __func__);
 		return -EINVAL;
 	}
-	display_on = true;
-
 #ifdef CONFIG_POWERSUSPEND
         set_power_suspend_state_panel_hook(POWER_SUSPEND_INACTIVE);
 #endif
@@ -787,15 +776,10 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 	if (ctrl->off_cmds.cmd_cnt)
 		mdss_dsi_panel_cmds_send(ctrl, &ctrl->off_cmds);
 
-<<<<<<< HEAD
 #if defined(CONFIG_FB_MSM_MDSS_SAMSUNG)
 	mutex_unlock(&vdd->vdd_lock);
 	mdss_samsung_panel_off_post(pdata);
 #endif
-=======
-	mdss_dsi_panel_off_in_prog_notify(pdata, pinfo);
-	display_on = false;
->>>>>>> 3dbaabdfd28... display: add a simple api to query the display state (on/off) at any point in time
 
 end:
 	pr_info("%s:-\n", __func__);
