@@ -87,7 +87,7 @@ EXPORT_SYMBOL(cacheid);
 
 unsigned int __atags_pointer __initdata;
 
-unsigned int system_rev;
+int system_rev;
 EXPORT_SYMBOL(system_rev);
 
 unsigned int system_serial_low;

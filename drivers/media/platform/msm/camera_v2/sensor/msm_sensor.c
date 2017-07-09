@@ -28,7 +28,7 @@
 #define CDBG(fmt, args...) do { } while (0)
 #endif
 
-extern unsigned int system_rev;
+extern int system_rev;
 
 #if defined(CONFIG_FLED_LM3632)
 extern void ssflash_led_turn_on(void);

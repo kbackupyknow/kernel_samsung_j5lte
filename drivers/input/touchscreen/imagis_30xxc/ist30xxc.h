@@ -537,7 +537,7 @@ struct ist30xx_data {
 
 extern struct mutex ist30xx_mutex;
 extern int ist30xx_dbg_level;
-extern unsigned int system_rev;
+extern int system_rev;
 
 void tsp_printk(int level, const char *fmt, ...);
 int ist30xx_intr_wait(struct ist30xx_data *data, long ms);
